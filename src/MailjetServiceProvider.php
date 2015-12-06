@@ -6,13 +6,13 @@ use Illuminate\Support\ServiceProvider;
 
 class MailjetServiceProvider extends ServiceProvider
 {
-	/**
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
      */
-	protected $defer = true;
-	
+    protected $defer = true;
+
     /**
      * Bootstrap the application services.
      *
@@ -30,14 +30,14 @@ class MailjetServiceProvider extends ServiceProvider
      */
     public function register()
     {
-		$this->mergeConfigFrom(__DIR__ . '/../config/mailjet.php', 'mailjet');
-		
-		$this->app->bind('\Mailjet\Client', function ($app) {
-			return new \Mailjet\Client($app['config']['mailjet.apikey_public'], $app['config']['mailjet.apikey_private']);
-		});
+        $this->mergeConfigFrom(__DIR__ . '/../config/mailjet.php', 'mailjet');
+        
+        $this->app->bind('\Mailjet\Client', function ($app) {
+            return new \Mailjet\Client($app['config']['mailjet.apikey_public'], $app['config']['mailjet.apikey_private']);
+        });
     }
-	
-	/**
+
+    /**
      * Get the services provided by the provider.
      *
      * @return array
