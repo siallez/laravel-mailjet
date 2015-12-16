@@ -3,6 +3,7 @@
 namespace Siallez\Mailjet;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Mail\TransportManager;
 
 class MailjetServiceProvider extends ServiceProvider
 {
@@ -12,16 +13,6 @@ class MailjetServiceProvider extends ServiceProvider
      * @var bool
      */
     protected $defer = true;
-
-    /**
-     * Bootstrap the application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
 
     /**
      * Register the application services.
@@ -34,6 +25,14 @@ class MailjetServiceProvider extends ServiceProvider
         
         $this->app->bind('\Mailjet\Client', function ($app) {
             return new \Mailjet\Client($app['config']['mailjet.apikey_public'], $app['config']['mailjet.apikey_private']);
+        });
+        
+        $this->app->resolving('swift.transport', function($object, $app) {
+            $object->extend('mailjet', function($app) {
+                $client = $app->make('\Mailjet\Client');
+                
+                return new MailjetTransport($client);
+            });
         });
     }
 

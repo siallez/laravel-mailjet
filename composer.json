@@ -12,7 +12,7 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.5.9",
-        "illuminate/support": "5.1.x",
+        "illuminate/mail": "5.1.x",
         "mailjet/mailjet-apiv3-php": "1.0.x"
     }
 }
