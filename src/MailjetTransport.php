@@ -25,24 +25,22 @@ class MailjetTransport extends Transport
     
     protected function buildEmailData(Swift_Mime_Message $message)
     {
-        list($FromName, $FromEmail, $Recipients, $Subject) = [null, null, null, null];
+        $data = [];
         
         foreach ($message->getFrom() as $address => $display) {
-            $FromName = $display;
-            $FromEmail = $address;
+            $data['FromEmail'] = $address;
+            $data['FromName'] = $display != null ? $display : $address;
             break;
         }
         
         foreach ($message->getTo() as $address => $display) {
-            $Recipients[] = ['Email' => $address, 'Name' => $display];
+            $data['Recipients'][] = ['Email' => $address, 'Name' => $display];
         }
         
-        $Subject = $message->getSubject();
+        $data['Subject'] = $message->getSubject();
         
-        $email = [ //TODO: Text-Part & Html-Part
-            'Text-Part' => $message->getBody(),
-        ];
+        $data['Text-Part'] = $message->getBody(); //TODO: Text-Part & Html-Part
         
-        return array_merge(compact('FromName', 'FromEmail', 'Subject', 'Recipients'), $email);
+        return $data;
     }
 }
