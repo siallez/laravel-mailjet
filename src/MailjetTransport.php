@@ -39,7 +39,22 @@ class MailjetTransport extends Transport
         
         $data['Subject'] = $message->getSubject();
         
-        $data['Text-Part'] = $message->getBody(); //TODO: Text-Part & Html-Part
+        if ($message->getContentType() == 'multipart/alternative') {
+            $data['Html-Part'] = $message->getBody();
+            foreach ($message->getChildren() as $child) {
+                if ($child->getContentType() == 'text/plain') {
+                    $data['Text-Part'] = $child->getBody();
+                }
+            }
+        }
+        elseif ($message->getContentType() == 'text/html') {
+            $data['Html-Part'] = $message->getBody();
+        }
+        elseif ($message->getContentType() == 'text/plain') {
+            $data['Text-Part'] = $message->getBody();
+        }
+        
+        // TODO: Attachments
         
         return $data;
     }
