@@ -19,6 +19,11 @@ MAILJET_APIKEY_PUBLIC=
 MAILJET_APIKEY_PRIVATE=
 ```
 
+If you want to use the driver you should also add this:
+```
+MAIL_DRIVER=mailjet
+```
+
 ## Usage
 You can access the API with dependency injection or all other available methods to resolve the [Service Container](http://laravel.com/docs/5.1/container#resolving). If you want to learn how to use it you can go to the official [Mailjet repository](https://github.com/mailjet/mailjet-apiv3-php).
 
@@ -35,4 +40,16 @@ Route::get('/mailjet', function(\Mailjet\Client $mj) {
 });
 ```
 
-TODO
+Using the driver is as easy as setting `mailjet` as the mail driver (look at Setup). After that, you can use the regular Laravel's Mail facade and all mails will be sent with mailjet. You can find all the information about that [here](http://laravel.com/docs/5.1/mail).
+
+Example:
+``` php
+Route::get('/mailjet2', function() {
+    $mail = Mail::raw('Text to e-mail', function ($message) {
+        $message->from('from@email.com')->to('to@email.com')->subject('Testing mailjet');
+    });
+    
+    return dd($mail);
+});
+```
+
