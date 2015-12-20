@@ -1,18 +1,24 @@
 {
     "name": "siallez/laravel-mailjet",
-    "description": "Mailjet wrapper for Laravel",
     "type": "library",
+    "description": "Mailjet wrapper for Laravel",
+    "keywords": ["laravel", "mailjet", "mail"],
+    "homepage": "https://github.com/siallez/laravel-mailjet",
     "license": "MIT",
     "authors": [
         {
             "name": "Siallez",
-            "email": "ankerworks@gmail.com"
+            "homepage": "https://github.com/siallez"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.5.9",
         "illuminate/mail": "5.1.x",
         "mailjet/mailjet-apiv3-php": "1.0.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "Siallez\\Mailjet\\": "src"
+        }
     }
 }
