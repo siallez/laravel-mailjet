@@ -27,6 +27,10 @@ class MailjetServiceProvider extends ServiceProvider
             return new \Mailjet\Client($app['config']['mailjet.apikey_public'], $app['config']['mailjet.apikey_private']);
         });
         
+        $this->app->bind('Mailjet\Client', function ($app) {
+            return new \Mailjet\Client($app['config']['mailjet.apikey_public'], $app['config']['mailjet.apikey_private']);
+        });
+        
         $this->app->resolving('swift.transport', function($object, $app) {
             $object->extend('mailjet', function($app) {
                 $client = $app->make('\Mailjet\Client');
@@ -43,6 +47,6 @@ class MailjetServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['\Mailjet\Client'];
+        return ['\Mailjet\Client', 'Mailjet\Client', 'swift.transport'];
     }
 }
