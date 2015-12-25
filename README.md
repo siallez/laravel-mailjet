@@ -3,9 +3,13 @@ This package integrates the [Mailjet API Client](https://github.com/mailjet/mail
 You can access the API through Laravel service container or sending mails in Laravel's way with the new driver.
 
 ## Install
-> This package requires version 5.1 of Laravel framework. I can't ensure the compatibility with older versions.
+> This package requires version 5.1 of Laravel framework. I can't ensure the compatibility with other versions.
 
-TODO: composer.json
+In your `composer.json`, add this to the `require` section:
+```json
+"siallez/laravel-mailjet" : "dev-master",
+```
+Run `composer update`.
 
 In `config/app.php`, add this to the `providers` array:
 ```php
